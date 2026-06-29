@@ -3,7 +3,7 @@
 
 ## Authorship
 - **Name**: Addison
-- **GitHub Profile**: [Link to your Profile]
+- **GitHub Profile**: [Addison's Profile](https://github.com/addisonflint)
 - **Date**: June 2026
 - **Version**: 2.0.0
 
@@ -18,17 +18,5 @@
 ## About the App
 
 ### Wiki Pages & Issues Links
-- [Project Brainstorm Wiki & Wireframe Diagram](Link to your GitHub Wiki)
-- [Staged Development Architecture Tracking Issue](Link to your GitHub Issue #1)
-
-### File Directory Tree Architecture
-```text
-C:\final-audit-game\
-│
-├── index.html (Or game.html)
-│
-└── assets/
-    └── js/
-        ├── apps.js
-        ├── concept-game.js
-        └── full-game.js
+- [Project Brainstorm Wiki & Wireframe Diagram](https://github.com/addisonflint/Bravo-WebGame/wiki)
+- [Staged Development Architecture Tracking Issue](https://github.com/addisonflint/Bravo-WebGame/issues/1)
