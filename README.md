@@ -66,6 +66,37 @@ The interface uses a decoupled architecture where Bootstrap 5 interactive button
     </div>
 </div>
 ```
+### 2. Functional Application Logic (jQuery Event Interactivity Vector)
+```
+$("#audit-dropzone").droppable({
+    accept: "#draggable-ledger",
+    drop: function (event, ui) {
+        if ($("#game-board-full").is(":visible")) {
+            ui.draggable.animate({ top: 0, left: 0 }, 300);
+            fullGameScore += 100; // Step baseline data states up
+
+            // Calculate exact progress bar scaling metrics
+            let progressPercent = (fullGameScore / 2000) * 100;
+            $("#audit-progress").css("width", progressPercent + "%");
+
+            // Evaluate state machine promotion milestones
+            let oldRank = currentRank;
+            if (fullGameScore >= 2000) currentRank = "Partner";
+            else if (fullGameScore >= 1500) currentRank = "Senior Manager";
+            else if (fullGameScore >= 1000) currentRank = "Associate";
+            else if (fullGameScore >= 500) currentRank = "Intern (Tier 2)";
+
+            if (currentRank !== oldRank) {
+                alert("✨ FIRM PROMOTION: Climbed to " + currentRank);
+            }
+
+            // Sync structural variables back out to the DOM rendering fields
+            $("#current-score").text(fullGameScore);
+            $("#player-live-rank").text(fullGameScore + " pts (" + currentRank + ")");
+        }
+    }
+});
+```
 ### Roadmap Milestones & Sprint 99 Backlog Log
 Future feature expansions and structural refinements are managed via the [Sprint 99 Tracker Milestone](https://github.com/addisonflint/Bravo-WebGame/milestone/1).
 - [ ] [Sprint 99 Issue #2: Review and implement gamified audit feature ideas (sorting mechanics, materiality sliders, and office archive navigation layouts).](https://github.com/addisonflint/Bravo-WebGame/issues/2)
