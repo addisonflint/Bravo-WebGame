@@ -21,8 +21,8 @@ $(document).ready(function () {
                 // Increment score by 100 points per successful W-2 filing
                 fullGameScore += 100;
                 
-                // Track progress bar percentage based on maximum win threshold (2000 pts)
-                let progressPercent = (fullGameScore / 2000) * 100;
+                // Keep progress bar pinned at 100% once they clear the 2000-point Partner milestone
+                let progressPercent = Math.min((fullGameScore / 2000) * 100, 100);
                 $("#audit-progress").css("width", progressPercent + "%");
 
                 // Evaluate accounting firm rank progression milestones
@@ -33,8 +33,6 @@ $(document).ready(function () {
                     currentRank = "Senior Manager";
                 } else if (fullGameScore >= 1000) {
                     currentRank = "Associate";
-                } else if (fullGameScore >= 500) {
-                    currentRank = "Intern"; // Progressed past starting baseline tier
                 } else {
                     currentRank = "Intern";
                 }
@@ -42,37 +40,30 @@ $(document).ready(function () {
                 // Alert the player if they earned a firm promotion!
                 if (currentRank !== oldRank) {
                     alert("✨ FIRM PROMOTION! You have climbed the ranks to: " + currentRank);
+                    
+                    // Trigger a custom milestone alert once they officially cross the Partner threshold
+                    if (currentRank === "Partner") {
+                        alert("🏆 EQUITY PARTNER STATUS ACHIEVED! The board is now infinite—keep filing to destroy the high scores leaderboard!");
+                    }
                 }
 
-                // Update UI Telemetry Scoreboard Display Panels
+                // Update UI Telemetry Scoreboard Display Panels dynamically
                 $("#current-score").text(fullGameScore);
-                $("#player-live-rank").text(fullGameScore + " pts (" + currentRank + ")");
+                
+                // If they go past Partner, show their advanced standing (e.g., "Partner +200")
+                if (fullGameScore > 2000) {
+                    let prestigePoints = fullGameScore - 2000;
+                    $("#player-live-rank").text(fullGameScore + " pts (Senior Partner +" + prestigePoints + ")");
+                } else {
+                    $("#player-live-rank").text(fullGameScore + " pts (" + currentRank + ")");
+                }
 
                 // Visual green pulse feedback on successful filing drop
                 $("#audit-dropzone").addClass("bg-success text-white").removeClass("bg-dark text-secondary");
                 setTimeout(() => {
                     $("#audit-dropzone").addClass("bg-dark text-secondary").removeClass("bg-success text-white");
                 }, 400);
-
-                // Ultimate Partner Win Condition Check
-                if (fullGameScore >= 2000) {
-                    triggerGameEnd(
-                        "Equity Partner Status Achieved! 🏆", 
-                        "Final Score: " + fullGameScore + " Points", 
-                        "Incredible career path! You survived tax season layouts, climbed the billing tiers, and made Equity Partner at the firm safely."
-                    );
-                }
             }
         }
     });
-
-    // Handle Game End Modal Injections
-    function triggerGameEnd(title, scoreDisplay, metadata) {
-        $("#modal-title-text").text(title);
-        $("#modal-score-display").text(scoreDisplay);
-        $("#modal-metadata").text(metadata);
-        
-        let m = new bootstrap.Modal(document.getElementById('endGameModal'));
-        m.show();
-    }
 });
