@@ -1,29 +1,27 @@
 $(document).ready(function () {
     // Enable simple containment constraint drag mechanics
-    $("#w2-document").draggable({
-        containment: "#game-board-concept",
+    $("#draggable-ledger").draggable({
+        containment: "document",
         revert: "invalid"
     });
 
     // Operational Dropzone Container Definition
-    $("#file-cabinet-target").droppable({
-        accept: "#w2-document",
+    $("#audit-dropzone").droppable({
+        accept: "#draggable-ledger",
         drop: function (event, ui) {
-            if ($("#game-board-concept").is(":visible")) {
-                ui.draggable.css({ top: "0px", left: "0px", position: "relative" }).appendTo($(this));
+            // Only fire if the Full Game screen is active
+            if ($("#game-board-full").is(":visible")) {
+                
+                // Return item back smoothly to baseline location for replayability
+                ui.draggable.animate({ top: 0, left: 0 }, 300);
 
                 // State Telemetry Upgrades
                 $("#current-score").text("100");
                 $("#player-live-rank").text("100 pts");
-                $("#audit-progress").css("width", "25%");
+                $("#audit-progress").css("width", "100%");
 
-                // Modal Display Config
-                $("#modal-title-text").text("Concept Verified! ✅");
-                $("#modal-score-display").text("Final Score: 100 Points");
-                $("#modal-metadata").text("Concept Mode complete. The single data structure asset was successfully filed.");
-
-                let m = new bootstrap.Modal(document.getElementById('endGameModal'));
-                m.show();
+                // Optional Alert / UI confirmation loop
+                alert("W-2 Successfully Filed with the IRS! Final Score: 100 Points ✅");
             }
         }
     });
