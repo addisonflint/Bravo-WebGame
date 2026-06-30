@@ -20,3 +20,30 @@
 ### Wiki Pages & Issues Links
 - [Project Brainstorm Wiki & Wireframe Diagram](https://github.com/addisonflint/Bravo-WebGame/wiki)
 - [Staged Development Architecture Tracking Issue](https://github.com/addisonflint/Bravo-WebGame/issues/1)
+
+### File Directory Tree Architecture
+```text
+C:\final-audit-game\
+│
+├── index.html
+│
+└── assets/
+    └── js/
+        ├── apps.js
+        ├── concept-game.js
+        └── full-game.js
+```
+### Technology Stack & Engineering Matrix
+- **IDE Platform**: Visual Studio Code (Live Server Extension, Todo Tree Configuration, Prettier Format Engine)
+- **Markup/Styling Libraries**: HTML5 (Emmet Parsing Shorthand), CSS3 (Normalize.css Matrix), Bootstrap 5.3.3 Core Layout Suite, Bootstrap Icons Library
+- **Engine Logic Frameworks**: JavaScript ES6 Core Engine, jQuery 3.7.1 API Client, jQuery UI 1.13.2 Extension Library
+- **Deployment Platform**: GitHub (Version Control Repo, Markdown Documentation, Project Wiki, Issue Tracking Management, GitHub Pages Hosting)
+
+### Performance Compilation Snippet
+The interface uses a decoupled architecture where Bootstrap 5 interactive buttons trigger jQuery event listeners, process state logic, and modify the Document Object Model (DOM) dynamically.
+
+**1. The Frontend Trigger (HTML inside `index.html`):**
+```html
+<button id="btn-process-file" class="btn btn-success">
+    <i class="bi bi-file-earmark-plus me-1"></i>Process Folder (+50 Pts)
+</button>
