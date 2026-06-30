@@ -1,6 +1,6 @@
 $(document).ready(function () {
-    let currentLevel = 1;
     let fullGameScore = 0;
+    let currentRank = "Intern";
 
     // Initialize the jQuery UI Draggable element for the W-2 Form
     $("#draggable-ledger").draggable({
@@ -21,13 +21,30 @@ $(document).ready(function () {
                 // Increment score per successful W-2 filing
                 fullGameScore += 100;
                 
-                // Track progress bar percentage based on score thresholds
-                let progressPercent = (fullGameScore / 300) * 100;
+                // Track progress bar percentage based on maximum win threshold (400 pts)
+                let progressPercent = (fullGameScore / 400) * 100;
                 $("#audit-progress").css("width", progressPercent + "%");
+
+                // Evaluate corporate rank progression milestones
+                let oldRank = currentRank;
+                if (fullGameScore >= 400) {
+                    currentRank = "CFO";
+                } else if (fullGameScore >= 300) {
+                    currentRank = "Controller";
+                } else if (fullGameScore >= 200) {
+                    currentRank = "Senior Auditor";
+                } else {
+                    currentRank = "Intern";
+                }
+
+                // Alert the player if they earned a promotion!
+                if (currentRank !== oldRank) {
+                    alert("✨ PROMOTION BREAKTHROUGH! You have been promoted to: " + currentRank);
+                }
 
                 // Update UI Telemetry Scoreboard Display Panels
                 $("#current-score").text(fullGameScore);
-                $("#player-live-rank").text(fullGameScore + " pts (Level " + currentLevel + " Auditor)");
+                $("#player-live-rank").text(fullGameScore + " pts (" + currentRank + ")");
 
                 // Visual green pulse feedback on successful filing drop
                 $("#audit-dropzone").addClass("bg-success text-white").removeClass("bg-dark text-secondary");
@@ -35,15 +52,13 @@ $(document).ready(function () {
                     $("#audit-dropzone").addClass("bg-dark text-secondary").removeClass("bg-success text-white");
                 }, 400);
 
-                // Game Level Advancement and Win Condition State Machine Logic
-                if (fullGameScore === 100 && currentLevel === 1) {
-                    currentLevel = 2;
-                    alert("✨ Level 1 Complete! Advancing to Level 2: Tax Season Crunch.");
-                } else if (fullGameScore === 200 && currentLevel === 2) {
-                    currentLevel = 3;
-                    alert("🚀 Level 2 Complete! Advancing to Level 3: Final Corporate Sign-off.");
-                } else if (fullGameScore >= 300) {
-                    triggerGameEnd("Audit Escaped! 🏆", "Victory! Final Score: " + fullGameScore + " Points", "You successfully processed and filed all W-2 forms safely through the IRS parameters.");
+                // Ultimate Win Condition Check
+                if (fullGameScore >= 400) {
+                    triggerGameEnd(
+                        "CFO Executive Status Achieved! 🏆", 
+                        "Final Score: " + fullGameScore + " Points", 
+                        "Incredible work! You worked your way from a humble Intern all the way to the Chief Financial Officer layout parameters safely."
+                    );
                 }
             }
         }
