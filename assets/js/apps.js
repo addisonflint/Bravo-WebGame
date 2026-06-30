@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    let accumulatedScore = 0;
     
     // Telemetry Environment Injections
     $("#browser-info").text(navigator.userAgent.match(/(Chrome|Safari|Firefox|Edge)/)?.[0] || "Web Browser");
@@ -30,25 +31,49 @@ $(document).ready(function () {
 
     // Operational View Mode Switch State Machine
     $("#nav-concept").on("click", function () {
-        $("#nav-concept").addClass("active");
-        $("#nav-full").removeClass("active");
-        $("#game-board-full").hide();
-        $("#game-board-concept").css("display", "flex");
+        $("#nav-concept").addClass("active border-bottom border-2 border-success rounded-0 text-white").removeClass("text-white-50");
+        $("#nav-full").removeClass("active border-bottom border-2 border-success rounded-0 text-white").addClass("text-white-50");
+        $("#mode-badge").text("Active Engine: Concept Mode").attr("class", "badge bg-success font-monospace px-3 py-2 text-dark fw-bold");
         resetTelemetryState();
     });
 
     $("#nav-full").on("click", function () {
-        $("#nav-full").addClass("active");
-        $("#nav-concept").removeClass("active");
-        $("#game-board-concept").hide();
-        $("#game-board-full").show();
+        $("#nav-full").addClass("active border-bottom border-2 border-success rounded-0 text-white").removeClass("text-white-50");
+        $("#nav-concept").removeClass("active border-bottom border-2 border-success rounded-0 text-white").addClass("text-white-50");
+        $("#mode-badge").text("Active Engine: Full Game Mode").attr("class", "badge bg-warning font-monospace px-3 py-2 text-dark fw-bold");
         resetTelemetryState();
     });
 
     function resetTelemetryState() {
+        accumulatedScore = 0;
         $("#current-score").text("0");
         $("#player-live-rank").text("0 pts");
         $("#audit-progress").css("width", "0%");
+    }
+
+    // Interactive Game Mechanics (Drag, Drop, and Button Click)
+    $("#draggable-ledger").draggable({ 
+        revert: "invalid", 
+        containment: "document" 
+    });
+
+    $("#audit-dropzone").droppable({
+        accept: "#draggable-ledger",
+        drop: function(event, ui) {
+            // Smoothly snap back the ledger item for replayability
+            ui.draggable.animate({ top: 0, left: 0 }, 300);
+            updateGameScore(50);
+        }
+    });
+
+    $(document).on("click", "#btn-process-file", function () {
+        updateGameScore(50);
+    });
+
+    function updateGameScore(amount) {
+        accumulatedScore += amount;
+        $("#current-score").text(accumulatedScore);
+        $("#player-live-rank").text(accumulatedScore + " pts");
     }
 });
 
@@ -57,5 +82,5 @@ window.cheatMode = function() {
     alert("🚨 SYSTEM AUDIT WARNING: CHEAT MODE OVERRIDE INITIATED!");
     $("#current-score").text("99999");
     $("#player-live-rank").text("99999 pts");
-    $("#audit-progress").css("width", "0%").removeClass("bg-danger").addClass("bg-success");
+    $("#audit-progress").css("width", "100%").removeClass("bg-danger").addClass("bg-success");
 };
