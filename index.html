@@ -8,8 +8,27 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-    <!-- jQuery UI CSS for drag/drop styles if needed -->
+    <!-- jQuery UI CSS for drag/drop visual styles -->
     <link href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css" rel="stylesheet">
+    <style>
+        #draggable-ledger {
+            cursor: grab;
+            width: 100px;
+            transition: transform 0.2s;
+        }
+        #draggable-ledger:active {
+            cursor: grabbing;
+        }
+        #audit-dropzone {
+            min-height: 150px;
+            border: 3px dashed #198754;
+            border-radius: 10px;
+            transition: background-color 0.2s;
+        }
+        #audit-dropzone.ui-droppable-hover {
+            background-color: rgba(25, 135, 84, 0.2);
+        }
+    </style>
 </head>
 <body class="bg-dark text-light min-vh-100 d-flex flex-column justify-content-center align-items-center">
 
@@ -19,7 +38,7 @@
         <p class="lead text-secondary mb-5">Navigate the high-stakes world of corporate ledger processing without blowing your risk profile thresholds!</p>
 
         <!-- Scoreboard Panel -->
-        <div class="row justify-content-center mb-4">
+        <div class="row justify-content-center mb-5">
             <div class="col-md-6 col-lg-4">
                 <div class="card bg-secondary text-white shadow-sm border-0">
                     <div class="card-body">
@@ -32,8 +51,27 @@
             </div>
         </div>
 
-        <!-- Interactive Game Controls -->
-        <div class="mt-4">
+        <!-- Drag and Drop Gameplay Workspace -->
+        <div class="row justify-content-center align-items-center g-4 mb-5">
+            <!-- Draggable File Column -->
+            <div class="col-sm-4 d-flex justify-content-center">
+                <div id="draggable-ledger" class="bg-light text-dark p-3 rounded shadow text-center border border-secondary">
+                    <i class="bi bi-file-earmark-spreadsheet text-success display-4 d-block mb-2"></i>
+                    <span class="fw-bold small">Unverified Ledger.csv</span>
+                </div>
+            </div>
+
+            <!-- Target Dropzone Column -->
+            <div class="col-sm-6">
+                <div id="audit-dropzone" class="d-flex flex-column justify-content-center align-items-center p-4 bg-dark text-secondary">
+                    <i class="bi bi-folder-check display-3 text-success mb-2"></i>
+                    <p class="mb-0 font-monospace small">Drag ledger here to archive file</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Traditional Interface Fallback Control -->
+        <div class="mt-2">
             <button id="btn-process-file" class="btn btn-success btn-lg px-4 py-2 shadow-sm">
                 <i class="bi bi-file-earmark-plus me-1"></i>Process Folder (+50 Pts)
             </button>
@@ -43,7 +81,7 @@
     <!-- Core Logic Scripts Matrix -->
     <!-- 1. jQuery Core API Client -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <!-- 2. jQuery UI Extension Library -->
+    <!-- 2. jQuery UI Extension Library (Handles Draggable/Droppable interaction) -->
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
     <!-- 3. Bootstrap 5 Interactive Bundle JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
