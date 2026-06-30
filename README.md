@@ -47,3 +47,7 @@ The interface uses a decoupled architecture where Bootstrap 5 interactive button
 <button id="btn-process-file" class="btn btn-success">
     <i class="bi bi-file-earmark-plus me-1"></i>Process Folder (+50 Pts)
 </button>
+```
+### Roadmap Milestones & Sprint 99 Backlog Log
+Future feature expansions and structural refinements are managed via the [Sprint 99 Tracker Milestone](https://github.com/addisonflint/Bravo-WebGame/milestone/1).
+- [ ] [Sprint 99 Issue #2: Review and implement gamified audit feature ideas (sorting mechanics, materiality sliders, and office archive navigation layouts).](https://github.com/addisonflint/Bravo-WebGame/issues/2)
