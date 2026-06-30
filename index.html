@@ -20,12 +20,12 @@
         }
         #audit-dropzone {
             min-height: 160px;
-            border: 3px dashed #198754;
+            border: 3px dashed #dc3545;
             border-radius: 10px;
             transition: background-color 0.2s, border-color 0.2s;
         }
         #audit-dropzone.ui-droppable-hover {
-            background-color: rgba(25, 135, 84, 0.2);
+            background-color: rgba(220, 53, 69, 0.2);
             border-color: #ffc107;
         }
     </style>
@@ -78,15 +78,16 @@
             <div class="row justify-content-center align-items-center g-4">
                 <div class="col-sm-4 d-flex justify-content-center">
                     <div id="draggable-ledger" class="bg-light text-dark p-3 rounded shadow text-center border border-secondary">
-                        <i class="bi bi-file-earmark-spreadsheet text-success display-4 d-block mb-2"></i>
-                        <span class="fw-bold small">Unverified Ledger.csv</span>
+                        <i class="bi bi-file-earmark-person text-danger display-4 d-block mb-2"></i>
+                        <span class="fw-bold small">Official W-2 Form.pdf</span>
                     </div>
                 </div>
 
                 <div class="col-sm-5">
                     <div id="audit-dropzone" class="d-flex flex-column justify-content-center align-items-center p-4 bg-dark text-secondary">
-                        <i class="bi bi-folder-check display-3 text-success mb-2"></i>
-                        <p class="mb-0 font-monospace small text-wrap px-2">Drag ledger box here to execute archive protocol</p>
+                        <i class="bi bi-building-fill-check display-3 text-danger mb-2"></i>
+                        <p class="mb-0 font-monospace small text-wrap px-2 fw-bold text-danger">IRS Processing Box</p>
+                        <p class="mb-0 font-monospace text-muted extra-small">Drop W-2 here to file</p>
                     </div>
                 </div>
             </div>
