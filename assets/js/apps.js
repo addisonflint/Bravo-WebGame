@@ -1,43 +1,44 @@
 $(document).ready(function () {
-    let accumulatedScore = 0;
-    
-    // Telemetry Environment Injections
-    $("#browser-info").text(navigator.userAgent.match(/(Chrome|Safari|Firefox|Edge)/)?.[0] || "Web Browser");
-    setInterval(() => {
-        let d = new Date();
-        $("#time-info").text(d.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}));
-    }, 1000);
+    let conceptScore = 0;
+    let fullGameScore = 0;
 
     // Operational View Mode Switch State Machine
     $("#nav-concept").on("click", function () {
-        $("#nav-concept").addClass("active");
-        $("#nav-full").removeClass("active");
+        $("#nav-concept").addClass("active text-white").removeClass("text-white-50");
+        $("#nav-full").removeClass("active text-white").addClass("text-white-50");
         $("#mode-badge").text("Active Engine: Concept Mode").attr("class", "badge bg-success font-monospace px-3 py-2 text-dark fw-bold");
         
-        // Hide full game drag-and-drop, show basic concept button
+        // Show button frame, hide drag arena
         $("#game-board-full").hide();
         $("#game-board-concept").show();
-        resetTelemetryState();
+        
+        swapTelemetryDisplay(conceptScore, "Concept");
     });
 
     $("#nav-full").on("click", function () {
-        $("#nav-full").addClass("active");
-        $("#nav-concept").removeClass("active");
+        $("#nav-full").addClass("active text-white").removeClass("text-white-50");
+        $("#nav-concept").removeClass("active text-white").addClass("text-white-50");
         $("#mode-badge").text("Active Engine: Full Game Mode").attr("class", "badge bg-warning font-monospace px-3 py-2 text-dark fw-bold");
         
-        // Hide basic concept button, show full game drag-and-drop board
+        // Hide button frame, show drag arena
         $("#game-board-concept").hide();
         $("#game-board-full").show();
-        resetTelemetryState();
+        
+        swapTelemetryDisplay(fullGameScore, "Senior Auditor");
     });
 
-    function resetTelemetryState() {
-        accumulatedScore = 0;
-        $("#current-score").text("0");
-        $("#player-live-rank").text("0 pts");
+    function swapTelemetryDisplay(score, rankSuffix) {
+        $("#current-score").text(score);
+        $("#player-live-rank").text(score + " pts (" + rankSuffix + ")");
     }
 
-    // Interactive Game Mechanics (Drag, Drop, and Button Click)
+    // Concept Mode Click Engine Logic
+    $(document).on("click", "#btn-process-file", function () {
+        conceptScore += 50;
+        swapTelemetryDisplay(conceptScore, "Concept");
+    });
+
+    // Full Game Drag & Drop Engine Logic
     $("#draggable-ledger").draggable({ 
         revert: "invalid", 
         containment: "document" 
@@ -47,24 +48,15 @@ $(document).ready(function () {
         accept: "#draggable-ledger",
         drop: function(event, ui) {
             ui.draggable.animate({ top: 0, left: 0 }, 300);
-            updateGameScore(50);
+            
+            fullGameScore += 100;
+            swapTelemetryDisplay(fullGameScore, "Senior Auditor");
+            
+            // Visual green pulse feedback
+            $("#audit-dropzone").addClass("bg-success text-white").removeClass("bg-dark text-secondary");
+            setTimeout(() => {
+                $("#audit-dropzone").addClass("bg-dark text-secondary").removeClass("bg-success text-white");
+            }, 400);
         }
     });
-
-    $(document).on("click", "#btn-process-file", function () {
-        updateGameScore(50);
-    });
-
-    function updateGameScore(amount) {
-        accumulatedScore += amount;
-        $("#current-score").text(accumulatedScore);
-        $("#player-live-rank").text(accumulatedScore + " pts");
-    }
 });
-
-// Console Cheat Code Handler
-window.cheatMode = function() {
-    alert("🚨 SYSTEM AUDIT WARNING: CHEAT MODE OVERRIDE INITIATED!");
-    $("#current-score").text("99999");
-    $("#player-live-rank").text("99999 pts");
-};
