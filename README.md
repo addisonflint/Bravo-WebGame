@@ -42,11 +42,29 @@ C:\final-audit-game\
 ### Performance Compilation Snippet
 The interface uses a decoupled architecture where Bootstrap 5 interactive buttons trigger jQuery event listeners, process state logic, and modify the Document Object Model (DOM) dynamically.
 
-**1. The Frontend Trigger (HTML inside `index.html`):**
+### Code Snippet Execution Matrices
+
+#### 1. Decoupled Interface Architecture (HTML5 Viewport Core)
 ```html
-<button id="btn-process-file" class="btn btn-success">
-    <i class="bi bi-file-earmark-plus me-1"></i>Process Folder (+50 Pts)
-</button>
+<div class="row workspace-row g-4">
+    <div id="game-board-full" class="col-lg-7" style="display: none;">
+        <div id="draggable-ledger" class="bg-light text-dark p-3 rounded shadow">
+            <i class="bi bi-file-earmark-person text-danger display-4"></i>
+            <span>Official W-2 Form.pdf</span>
+        </div>
+        <div id="audit-dropzone" class="p-4 bg-dark text-secondary">
+            <p>IRS Processing Box</p>
+        </div>
+    </div>
+
+    <div class="col-lg-5">
+        <h2 id="current-score" class="display-3 text-warning">0</h2>
+        <span id="player-live-rank">Intern</span>
+        <div class="progress">
+            <div id="audit-progress" class="progress-bar" style="width: 0%;"></div>
+        </div>
+    </div>
+</div>
 ```
 ### Roadmap Milestones & Sprint 99 Backlog Log
 Future feature expansions and structural refinements are managed via the [Sprint 99 Tracker Milestone](https://github.com/addisonflint/Bravo-WebGame/milestone/1).
