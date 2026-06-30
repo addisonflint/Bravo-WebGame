@@ -18,28 +18,30 @@ $(document).ready(function () {
                 // Return item back smoothly to baseline location for replayability
                 ui.draggable.animate({ top: 0, left: 0 }, 300);
 
-                // Increment score per successful W-2 filing
+                // Increment score by 100 points per successful W-2 filing
                 fullGameScore += 100;
                 
-                // Track progress bar percentage based on maximum win threshold (400 pts)
-                let progressPercent = (fullGameScore / 400) * 100;
+                // Track progress bar percentage based on maximum win threshold (2000 pts)
+                let progressPercent = (fullGameScore / 2000) * 100;
                 $("#audit-progress").css("width", progressPercent + "%");
 
-                // Evaluate corporate rank progression milestones
+                // Evaluate accounting firm rank progression milestones
                 let oldRank = currentRank;
-                if (fullGameScore >= 400) {
-                    currentRank = "CFO";
-                } else if (fullGameScore >= 300) {
-                    currentRank = "Controller";
-                } else if (fullGameScore >= 200) {
-                    currentRank = "Senior Auditor";
+                if (fullGameScore >= 2000) {
+                    currentRank = "Partner";
+                } else if (fullGameScore >= 1500) {
+                    currentRank = "Senior Manager";
+                } else if (fullGameScore >= 1000) {
+                    currentRank = "Associate";
+                } else if (fullGameScore >= 500) {
+                    currentRank = "Intern"; // Progressed past starting baseline tier
                 } else {
                     currentRank = "Intern";
                 }
 
-                // Alert the player if they earned a promotion!
+                // Alert the player if they earned a firm promotion!
                 if (currentRank !== oldRank) {
-                    alert("✨ PROMOTION BREAKTHROUGH! You have been promoted to: " + currentRank);
+                    alert("✨ FIRM PROMOTION! You have climbed the ranks to: " + currentRank);
                 }
 
                 // Update UI Telemetry Scoreboard Display Panels
@@ -52,12 +54,12 @@ $(document).ready(function () {
                     $("#audit-dropzone").addClass("bg-dark text-secondary").removeClass("bg-success text-white");
                 }, 400);
 
-                // Ultimate Win Condition Check
-                if (fullGameScore >= 400) {
+                // Ultimate Partner Win Condition Check
+                if (fullGameScore >= 2000) {
                     triggerGameEnd(
-                        "CFO Executive Status Achieved! 🏆", 
+                        "Equity Partner Status Achieved! 🏆", 
                         "Final Score: " + fullGameScore + " Points", 
-                        "Incredible work! You worked your way from a humble Intern all the way to the Chief Financial Officer layout parameters safely."
+                        "Incredible career path! You survived tax season layouts, climbed the billing tiers, and made Equity Partner at the firm safely."
                     );
                 }
             }
